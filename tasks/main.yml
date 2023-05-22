@@ -1,0 +1,14 @@
+---
+# tasks file for metasploit
+- name: Configure metasploit repository
+  block:
+    - name: metasploit | download
+      ansible.builtin.get_url:
+        url: "{{metasploit_url}}"
+        dest: /opt/msfinstall
+        mode: 755
+
+    - name: metasploit | install
+      ansible.builtin.command:
+        cmd: /opt/msfinstall
+        creates: /usr/bin/msfconsole
