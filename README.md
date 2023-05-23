@@ -14,6 +14,8 @@ Role Variables
 
 ```
 metasploit_url: "https://raw.githubusercontent.com/rapid7/metasploit-omnibus/master/config/templates/metasploit-framework-wrappers/msfupdate.erb"
+metasploit_user: root
+metasploit_msfdb: False
 ```
 
 Example Playbook
@@ -24,6 +26,18 @@ Example Playbook
       roles:
          - role: metasploit
 ```
+
+The following example initializes the msfdb for user "ubuntu":
+
+```
+    - hosts: localhost
+      roles:
+         - role: metasploit
+           vars:
+             metasploit_user: ubuntu
+             metasploit_msfdb: True
+```
+
 
 License
 -------
