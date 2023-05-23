@@ -13,11 +13,17 @@
         cmd: /opt/msfinstall
         creates: /usr/bin/msfconsole
 
+- name: get user home directory
+  shell: >
+         getent passwd {{ metasploit_user }}  | awk -F: '{ print $6 }'
+  changed_when: false
+  register: user_home
+
 - name: Initialize MSFDatabase
   become: True
   become_user: "{{metasploit_user}}"
   ansible.builtin.shell:
   args:
     cmd: msfdb --component database init
-    creates: "{{ lookup('env','HOME') }}/.msf4/db"
-  when: metasploit_msfdb is True
+    creates: "{{ user_home.stdout }}/.msf4/db"
+  when: metasploit_msfdb == True
