@@ -12,3 +12,12 @@
       ansible.builtin.command:
         cmd: /opt/msfinstall
         creates: /usr/bin/msfconsole
+
+- name: Initialize MSFDatabase
+  become: True
+  become_user: "{{metasploit_user}}"
+  ansible.builtin.shell:
+  args:
+    cmd: msfdb --component database init
+    creates: "{{ lookup('env','HOME') }}/.msf4/db"
+  when: metasploit_msfdb is True
