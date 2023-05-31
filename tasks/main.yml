@@ -27,3 +27,13 @@
     cmd: msfdb --component database init
     creates: "{{ user_home.stdout }}/.msf4/db"
   when: metasploit_msfdb == True
+
+- name: Deploy service template
+  ansible.builtin.template:
+    src: msfrpcd.service.j2
+    dest: /etc/systemd/system/msfrpcd
+    owner: root
+    group: root
+    mode: 0744
+  notify: Restart msfrpcd
+ 
