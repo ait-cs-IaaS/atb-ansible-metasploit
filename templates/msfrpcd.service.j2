@@ -3,7 +3,7 @@ Description=start metasploit
 
 [Service]
 Type=simple
-ExecStart=/usr/bin/msfrpcd -a -P {{metasploit_rpcpassword}} -f
+ExecStart=/usr/bin/msfrpcd -n -a -P {{metasploit_rpcpassword}} -f
 KillMode=control-group
 Restart=on-failure
 User={{metasploit_user}}
